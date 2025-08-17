@@ -47,5 +47,169 @@
             obj.display();            // Output: Car color: Red
         }
     }
+7. ) Can we have Access Modifiers for Constructors?
+  Ans: Yes, We can have it. 
+    Public constructor: object can be created from anywhere.
+    Private Constructor: Object cannot be created outside the class.
+    Default (package-private in Java): Object can be created only within the same package.  
+8. ) What is static?
+  Ans: The keyword **`static`** in Java and C++ is used for memory management.  
+       When a member (variable, method, block, or nested class) is declared as **static**, it belongs to the **class** rather than to any specific object.  
+       This means all objects of the class share the same static member.
+  🔹 Normal (non-static) members
+      Every object gets its own copy.
+      Example: If you create 3 objects, each one has its own separate variable.
+      class Student {
+          int id; // non-static
+          Student() {
+            id++; // increases for every new object
+          }
+      }
+      If you create Student s1 = new Student(); and Student s2 = new Student();, s2= new Strudent()
+      then s1.id and s2.id are different variables. value of id = 1 after creating 2 object(after each object when
+      we create other the prev one gets terminated.
+    🔹 Static members
+      Belong to the class, not to objects.
+      All objects share the same copy.
+      Memory is allocated only once (when the class is loaded).
+      class Student {
+              static int id; // non-static
+              Student() {
+                id++; // increases for every new object
+              }
+      }
+      If you create 3 objects: then after all three object the id will be 3. here id is shared by all object
+
+      Static Method: Can be called without creating an object.  
+      syntax :      ClassName.FunctionName()---> static s=function name 
+      class Dog{
+        static void bark(){
+           //
+        }
+      }
+      Dog.bark();
+9. ) How to create object of private constructor class?
+   Ans:If a class has a private constructor, we cannot instantiate it directly from outside the class.
+       To access it, we usually provide a public static method inside the class which calls the private constructor and returns an object.
+       Why public static not public only?
+       If you make a normal public method (non-static), you would need an object first to call that method.
+       But the whole point is you don’t have an object yet (constructor is private!).
+        class MyClass {
+            // Private constructor (cannot be called outside directly)
+            private MyClass() {
+                System.out.println("Private Constructor");
+            }
+            // ❌ Non-static method
+            public MyClass getInstanceNonStatic() {
+                return new MyClass();
+            }
+            // ✅ Static method
+            public static MyClass getInstanceStatic() {
+                return new MyClass();
+            }
+        }
+        public class Main {
+            public static void main(String[] args) {
+                // MyClass obj1 = new MyClass();  // ❌ Not allowed (private constructor)
+                // ❌ Non-static method can't be called without object
+                // MyClass obj2 = MyClass.getInstanceNonStatic();
+                // ✅ Static method can be called without creating an object
+                MyClass obj3 = MyClass.getInstanceStatic();
+            }
+        }
+
+10. ) final , finally , finalize?
+  Ans: Final : applied to method, variable, class --> to make them unchangeable.
+        // Final variable (constant)
+        final int x = 10;
+        // x = 20;  ❌ Not allowed
+        // Final method (cannot be overridden)
+        class Parent {
+            final void show() {
+                System.out.println("Parent show()");
+            }
+        }
+        class Child extends Parent {
+            // void show() { } ❌ Not allowed
+        }
+        // Final class (cannot be inherited)
+        final class Animal {}
+        // class Dog extends Animal {} ❌ Not allowed
+
+        Finally: used in try-catch-finally. ---> ensures a block of code always exceutes , even if exception occurs.
+        try {
+            int a = 10 / 0;  // This will throw exception
+        } catch (Exception e) {
+            System.out.println("Exception handled");
+        } finally {
+            System.out.println("Finally block always runs!");
+        }
+
+        Finalize() --> method defined in object class --> alled by Garbage Collector (GC) before destroying an object 
+        → used to release resources (but rarely used in modern Java, replaced by try-with-resources).
+        protected void finalize() throws Throwable {
+            System.out.println("Finalize method called");
+        }
+11. ) What is Encapsulation?
+    Ans:Encapsulation describes bundling data and methods that work on that data within one unit, like a class. We often often 
+        use this concept to hide an object’s internal representation or state from the outside. This is called information hiding.
+        It’s like putting the data in a capsule so that nobody can directly misuse it.
+        How Encapsulation Works?
+          Make variables private → So that they cannot be accessed directly from outside.
+          Provide public getters and setters → To safely read or update those variables.
+        class Student {
+            private String name;   // encapsulated (private)
+            // setter
+            public void setName(String name) {
+                this.name = name;
+            }
+            // getter
+            public String getName() {
+                return name;
+            }
+        }
+        public class Main {
+            public static void main(String[] args) {
+                Student s = new Student();
+                //  Direct access not allowed (gives error)
+                // s.name = "Alweena";  
+                // Access via setter and getter
+                s.setName("Alweena");
+                System.out.println(s.getName()); 
+            }
+        }
+12. ) Inheritance ?
+  Ans: Inheritance is an object-oriented programming concept where one class (child/subclass) 
+       can inherit the properties (fields/variables) and behaviors (methods) of another class (parent/superclass).
+       If we create a Bird class with a method fly(), then any specific bird class like Owl, Parrot, or Eagle can
+       inherit it and use the fly() method.
+       Parent class--> existing class (B)
+       Chlid class--> new class that we are creating  (A)
+       Class A extends B{
+
+       }
+        class Bird {
+            void fly() {
+                System.out.println("All birds can fly");
+            }
+        }
+        // Child class (inherits from Bird)
+        class Owl extends Bird {
+            void sound() {
+                System.out.println("Owl hoots");
+            }
+        }
+        public class InheritanceDemo {
+            public static void main(String[] args) {
+                Owl o = new Owl();
+                o.fly();    // using inherited method
+                o.sound();  // using child class method
+            }
+        }
+
+      
+        
 
 
+
+                
