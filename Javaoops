@@ -206,6 +206,20 @@
                 o.sound();  // using child class method
             }
         }
+        Private members are inherited, but not accessible in the subclass.
+        Types of Inheritance in Java
+          Single Inheritance
+          One child inherits from one parent.
+          Example: class B extends A
+        Multilevel Inheritance
+          A child inherits from a parent, and another child inherits from that child.
+          Example: class C extends B, class B extends A
+        Hierarchical Inheritance
+          Multiple child classes inherit from the same parent.
+          Example: class Dog extends Animal, class Cat extends Animal
+        Multiple Inheritance (Not directly supported in classes)--> class c extends b,a 
+          Java does not support multiple inheritance with classes (to avoid ambiguity, e.g., Diamond Problem).
+          But it can be achieved using interfaces.
 
       
         
