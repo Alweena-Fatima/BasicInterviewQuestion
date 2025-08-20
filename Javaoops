@@ -221,7 +221,131 @@
           Java does not support multiple inheritance with classes (to avoid ambiguity, e.g., Diamond Problem).
           But it can be achieved using interfaces.
 
+13.) Abstraction?
+  Ans: concept that focuses on hiding the complex implementation details and showing only the essential features of an object. It helps in 
+  reducing programming complexity and effort by providing a clear separation between the abstract properties and the implementation details.
+  It can be achieve in two ways: a) abstract class---> using this we can achieve 0-100% abstraction
+                                 b) interface (in JAVA) --> 100% abstraction 
+14.) Abstract class?
+  Ans: we can aciheve 0-100% which means partial abstraction using abstract class
+       Declared using abstract keyword 
+       -- it can have abstract method(method without body) and concrete method (regular method with body)
+       --Abstract classes cannot be instantiated directly and are meant to be extended by subclasses, which means we are not allowedto create
+         object of abstract class.
+       -- Abstract class must be extended and similarly abstract method must be overidden otherwise it will throw compilation error.
+       -- if a method is abstract --> class must be abstract (Because otherwise the compiler would expect that method to have a body.)
+       -- if class is abstract --> method may/may not be abstract.(all concrete/all abstract anything)
+--------------------------------------------------------------------------------------------------------------------------------
+        // Abstract class
+        abstract class Vehicle {
+            // Abstract method (no body → must be implemented by subclasses)
+            abstract void start();
+            // Concrete method (has a body → can be used directly)
+            void stop() {
+                System.out.println("Vehicle stopped.");
+            }
+        }
+        // Subclass providing implementation for abstract method
+        class Car extends Vehicle {  
+            @Override
+            void start() {
+                System.out.println("Car started with a key.");
+            }
+        }  
+        public class Test {
+            public static void main(String[] args) {
+                // Vehicle v = new Vehicle(); ❌ Not allowed (abstract class)
+       🌚Don't you wanna know why we cant create object of abstract class? simple (got this shit as interview question (selecting oops and java as fav backfires me lol))
+        Ans: An abstract class can contain abstract methods (methods declared but not implemented)
+        abstract class Shape {
+            abstract void draw(); // no body → incomplete
+        } 
+        If Java let you create an object of Shape, then what would happen if you called draw()? There’s no implementation! That would break the rules of
+        OOPS(Every object must be able to respond to all of its methods.) but what if we have all concrete method in class? (idk the answer pls contribute)
+
+15.) polymorphism ?
+  Ans: Greek words “poly,” meaning many, and “morph,” meaning form or shape. it allows to perform simgle action in different ways( it allows us to perform multiple 
+       operations by using the single name of any method (interface).)
+       Java implements polymorphism in two primary forms: compile-time (or static) polymorphism and runtime (or dynamic) polymorphism.
+       a) --- Compile-time Polymorphism ----
+       -  also known as static/early binding 
+       -  occurs when the decision about which method to call is made at compile time.
+       - This can achieve by function overloading in java and function + operator overloading in C++
+         Q) ------- Function OverLoading -------?
+         It allow us to have more than one function having same name but different Parameter list.
+         - ways to overload (function with same name-> imp we cant change the return type) 
+          # changing number of parameter 
+          # Data type of parameter 
+          # Sequence of parameter 
+          public class OverloadExample {
+            // 1. Different number of parameters
+            public int add(int a, int b) {
+                return a + b;
+            }
+            public int add(int a, int b, int c) {
+                return a + b + c;
+            }
+            // 2. Different data types of parameters
+            public double add(double a, double b) {
+                return a + b;
+            }
+            // 3. Different sequence of parameters
+            public double add(int a, double b) {
+                return a + b;
+            }
+            public double add(double a, int b) {
+                return a + b;
+            }
+            public static void main(String[] args) {
+                OverloadExample obj = new OverloadExample();
+                System.out.println(obj.add(2, 3));          // Calls add(int, int)
+                System.out.println(obj.add(2, 3, 4));       // Calls add(int, int, int)
+                System.out.println(obj.add(2.5, 3.5));      // Calls add(double, double)
+                System.out.println(obj.add(2, 3.5));        // Calls add(int, double)
+                System.out.println(obj.add(2.5, 3));        // Calls add(double, int)
+            }
+        }
+          ##the compiler knows exactly which add() method we are calling, based on the number/type of parameters. thats why it is compile time.
+        Q) can we overload constructor?
+        Ans: Yes, Sometimes there is a need of initializing an object in different ways. This can be done using constructor overloading.
+            public class Box {
+              double width, height, depth;
+              // Default constructor
+              public Box() {
+                  width = height = depth = 0;
+              }
+              // Constructor with one parameter (cube)
+              public Box(double side) {
+                  width = height = depth = side;
+              }
+              // Constructor with three parameters
+              public Box(double w, double h, double d) {
+                  width = w;
+                  height = h;
+                  depth = d;
+              }
+              double volume() {
+                  return width * height * depth;
+              }
+              public static void main(String[] args) {
+                  Box b1 = new Box();
+                  Box b2 = new Box(3);
+                  Box b3 = new Box(2, 4, 5);
+                  System.out.println("Volume b1: " + b1.volume()); // 0
+                  System.out.println("Volume b2: " + b2.volume()); // 27
+                  System.out.println("Volume b3: " + b3.volume()); // 40
+              }
+          }
+          
+
+
       
+
+          
+
+        
+
+  
         
 
 
