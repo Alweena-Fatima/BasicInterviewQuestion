@@ -336,10 +336,33 @@
                   System.out.println("Volume b3: " + b3.volume()); // 40
               }
           }
-          
+       a) --- Run-time Polymorphism ----
+        - Late Binding/Dynamic Binding
+        - Decision about which method to call is made at runtime based on the actual object's type.
+        - Achieved through method overriding.
+        - Enables dynamic method dispatch where a call to an overridden method is resolved at runtime.
+          Q) ---- Function Overriding -----
+            Declaring method in subclass which is already present in parent class. overriding involves a subclass providing a specific implementation 
+            for a method that is already defined in its superclass.
 
+            IMP------- DYNAMIC METHOD DISPATCH-------IMP
+            Dynamic method dispatch is the mechanism by which a call to an overridden method is resolved at run time, rather than compile time.
+            This means that the method to be called is determined at runtime based on the actual object, not on the type of reference variable.\
+            Parent obj;   // this is the reference variable
+            The variable obj is a reference variable, and a reference variable stores the address of the object, not the object itself.
+            Parent obj = new Parent(); // object is created in heap Memory  
+            One object is created in the heap, and the address of that object is stored in the obj variable
+            Dynamic Method Dispatch. This mechanism enables a superclass reference variable to refer to a subclass object, and Java determines which 
+            overridden method to execute based on the actual object type.(a reference variable of the parent class can store the address of an object 
+            of the child class.)
+            class Parent
+            {}
+            class Child extends Parent
+            {}
+            
+            Parent obj1 = new Child(); // this is valid parent class…
+            Imagine you are developing a payment system where different payment methods (Credit Card, PayPal, UPI) should have their own processing logic.
 
-      
 
           
 
