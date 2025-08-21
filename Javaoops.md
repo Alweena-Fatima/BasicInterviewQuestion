@@ -27,7 +27,7 @@ public class classname {
 ```
 
 ---
-4. ) **What is object?**
+4. ) **What is object?**  
 Ans: An object is an instance of a class, created using the blueprint provided by the class. Objects have their own state (attributes) and behavior (methods), which are defined in the class.
 ```java
 class Car {
@@ -42,12 +42,12 @@ class Car {
 ```
 ---
 
-6. ) **What is Method ?**
+6. ) **What is Method ?**  
   Ans: These are functions that are defined inside a class that describe the behavior of an object. They are useful for re-usability or keeping functionality encapsulated inside one object at a time.
 
 ---
 
-7.) **What is Constructor?**
+7.) **What is Constructor?**  
 Ans: It is a special method in a class that is automatically called when an object of the class is created.  
   It is mainly used to **initialize the object’s state (variables)**.  
 - The name of the constructor is the **same as the class name**.  
@@ -72,53 +72,72 @@ Ans: It is a special method in a class that is automatically called when an obje
 
 ---
 
-7. ) Can we have Access Modifiers for Constructors?
+7. ) **Can we have Access Modifiers for Constructors?**  
   Ans: Yes, We can have it. 
     Public constructor: object can be created from anywhere.
     Private Constructor: Object cannot be created outside the class.
-    Default (package-private in Java): Object can be created only within the same package.  
-8. ) What is static?
+    Default (package-private in Java): Object can be created only within the same package.
+
+---
+    
+9. ) **What is static?**  
   Ans: The keyword **`static`** in Java and C++ is used for memory management.  
        When a member (variable, method, block, or nested class) is declared as **static**, it belongs to the **class** rather than to any specific object.  
-       This means all objects of the class share the same static member.
-  🔹 Normal (non-static) members
-      Every object gets its own copy.
-      Example: If you create 3 objects, each one has its own separate variable.
+       This means all objects of the class share the same static member.  
+   
+   **Normal (non-static) members**  
+      -Every object gets its own copy.  
+      -Example: If you create 3 objects, each one has its own separate variable.  
+      
+   ```java 
       class Student {
           int id; // non-static
           Student() {
             id++; // increases for every new object
           }
       }
+
       If you create Student s1 = new Student(); and Student s2 = new Student();, s2= new Strudent()
       then s1.id and s2.id are different variables. value of id = 1 after creating 2 object(after each object when
-      we create other the prev one gets terminated.
-    🔹 Static members
-      Belong to the class, not to objects.
-      All objects share the same copy.
-      Memory is allocated only once (when the class is loaded).
+      we create other the prev one gets terminated.  
+  ```
+
+Static members  
+Belong to the class, not to objects.
+All objects share the same copy.
+Memory is allocated only once (when the class is loaded).
+  
+```java
       class Student {
               static int id; // non-static
               Student() {
                 id++; // increases for every new object
               }
       }
+
       If you create 3 objects: then after all three object the id will be 3. here id is shared by all object
 
       Static Method: Can be called without creating an object.  
       syntax :      ClassName.FunctionName()---> static s=function name 
+
       class Dog{
         static void bark(){
            //
         }
       }
       Dog.bark();
-9. ) How to create object of private constructor class?
+```
+
+---
+   
+11. ) **How to create object of private constructor class?**  
    Ans:If a class has a private constructor, we cannot instantiate it directly from outside the class.
        To access it, we usually provide a public static method inside the class which calls the private constructor and returns an object.
-       Why public static not public only?
+    
+       **Why public static not public only?**  
        If you make a normal public method (non-static), you would need an object first to call that method.
        But the whole point is you don’t have an object yet (constructor is private!).
+```java
         class MyClass {
             // Private constructor (cannot be called outside directly)
             private MyClass() {
@@ -142,9 +161,13 @@ Ans: It is a special method in a class that is automatically called when an obje
                 MyClass obj3 = MyClass.getInstanceStatic();
             }
         }
+```
 
-10. ) final , finally , finalize?
-  Ans: Final : applied to method, variable, class --> to make them unchangeable.
+---
+
+13. ) **final , finally , finalize?**  
+  Ans: **Final** : applied to method, variable, class --> to make them unchangeable.
+```java 
         // Final variable (constant)
         final int x = 10;
         // x = 20;  ❌ Not allowed
@@ -160,8 +183,10 @@ Ans: It is a special method in a class that is automatically called when an obje
         // Final class (cannot be inherited)
         final class Animal {}
         // class Dog extends Animal {} ❌ Not allowed
-
-        Finally: used in try-catch-finally. ---> ensures a block of code always exceutes , even if exception occurs.
+```   
+Finally: used in try-catch-finally. ---> ensures a block of code always exceutes , even if exception occurs.  
+        
+```java 
         try {
             int a = 10 / 0;  // This will throw exception
         } catch (Exception e) {
@@ -169,19 +194,27 @@ Ans: It is a special method in a class that is automatically called when an obje
         } finally {
             System.out.println("Finally block always runs!");
         }
+```
 
-        Finalize() --> method defined in object class --> alled by Garbage Collector (GC) before destroying an object 
-        → used to release resources (but rarely used in modern Java, replaced by try-with-resources).
+Finalize() --> method defined in object class --> alled by Garbage Collector (GC) before destroying an object 
+→ used to release resources (but rarely used in modern Java, replaced by try-with-resources).
+
+```java
         protected void finalize() throws Throwable {
             System.out.println("Finalize method called");
         }
-11. ) What is Encapsulation?
+```
+
+---
+
+15. ) **What is Encapsulation?**
     Ans:Encapsulation describes bundling data and methods that work on that data within one unit, like a class. We often often 
         use this concept to hide an object’s internal representation or state from the outside. This is called information hiding.
-        It’s like putting the data in a capsule so that nobody can directly misuse it.
-        How Encapsulation Works?
-          Make variables private → So that they cannot be accessed directly from outside.
-          Provide public getters and setters → To safely read or update those variables.
+        It’s like putting the data in a capsule so that nobody can directly misuse it.  
+        **How Encapsulation Works?**  
+          -Make variables private → So that they cannot be accessed directly from outside.  
+          -Provide public getters and setters → To safely read or update those variables.
+    ```java  
         class Student {
             private String name;   // encapsulated (private)
             // setter
@@ -203,13 +236,18 @@ Ans: It is a special method in a class that is automatically called when an obje
                 System.out.println(s.getName()); 
             }
         }
-12. ) Inheritance ?
+    ```
+
+---
+    
+17. ) **Inheritance ?**  
   Ans: Inheritance is an object-oriented programming concept where one class (child/subclass) 
-       can inherit the properties (fields/variables) and behaviors (methods) of another class (parent/superclass).
+       can inherit the properties (fields/variables) and behaviors (methods) of another class (parent/superclass).  
        If we create a Bird class with a method fly(), then any specific bird class like Owl, Parrot, or Eagle can
        inherit it and use the fly() method.
-       Parent class--> existing class (B)
-       Chlid class--> new class that we are creating  (A)
+       **Parent class**--> existing class (B)  
+       **Chlid class**--> new class that we are creating  (A)
+    ```java
        Class A extends B{
 
        }
@@ -231,27 +269,35 @@ Ans: It is a special method in a class that is automatically called when an obje
                 o.sound();  // using child class method
             }
         }
-        Private members are inherited, but not accessible in the subclass.
-        Types of Inheritance in Java
-          Single Inheritance
-          One child inherits from one parent.
-          Example: class B extends A
-        Multilevel Inheritance
-          A child inherits from a parent, and another child inherits from that child.
-          Example: class C extends B, class B extends A
-        Hierarchical Inheritance
-          Multiple child classes inherit from the same parent.
-          Example: class Dog extends Animal, class Cat extends Animal
-        Multiple Inheritance (Not directly supported in classes)--> class c extends b,a 
-          Java does not support multiple inheritance with classes (to avoid ambiguity, e.g., Diamond Problem).
-          But it can be achieved using interfaces.
+    ```
+    
+Private members are inherited, but not accessible in the subclass.  
+        - Types of Inheritance in Java  
+              Single Inheritance  
+              One child inherits from one parent.  
+              Example: class B extends A  
+        - Multilevel Inheritance  
+              A child inherits from a parent, and another child inherits from that child.  
+              Example: class C extends B, class B extends A  
+        - Hierarchical Inheritance  
+              Multiple child classes inherit from the same parent.  
+              Example: class Dog extends Animal, class Cat extends Animal  
+        - Multiple Inheritance (Not directly supported in classes)--> class c extends b,a   
+              Java does not support multiple inheritance with classes (to avoid ambiguity, e.g., Diamond Problem).
+              But it can be achieved using interfaces.
 
-13.) Abstraction?
+---
+
+13.) **Abstraction?**  
   Ans: concept that focuses on hiding the complex implementation details and showing only the essential features of an object. It helps in 
-  reducing programming complexity and effort by providing a clear separation between the abstract properties and the implementation details.
-  It can be achieve in two ways: a) abstract class---> using this we can achieve 0-100% abstraction
-                                 b) interface (in JAVA) --> 100% abstraction 
-14.) Abstract class?
+  reducing programming complexity and effort by providing a clear separation between the abstract properties and the implementation details.  
+  It can be achieve in two ways:   
+  a) abstract class---> using this we can achieve 0-100% abstraction    
+  b) interface (in JAVA) --> 100% abstraction   
+
+---
+                            
+**14.) Abstract class?**
   Ans: we can aciheve 0-100% which means partial abstraction using abstract class
        Declared using abstract keyword 
        -- it can have abstract method(method without body) and concrete method (regular method with body)
@@ -260,6 +306,7 @@ Ans: It is a special method in a class that is automatically called when an obje
        -- Abstract class must be extended and similarly abstract method must be overidden otherwise it will throw compilation error.
        -- if a method is abstract --> class must be abstract (Because otherwise the compiler would expect that method to have a body.)
        -- if class is abstract --> method may/may not be abstract.(all concrete/all abstract anything)
+       
 --------------------------------------------------------------------------------------------------------------------------------
         // Abstract class
         abstract class Vehicle {
