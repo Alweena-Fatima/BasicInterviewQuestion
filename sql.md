@@ -842,3 +842,109 @@ COMMIT;
 ROLLBACK;
 
 ```
+#### INDEX
+An index in SQL is a schema object that improves the speed of data retrieval operations on a table.
+- Works by creating a separate data structure that provides pointers to the rows in a table. Which makes it faster to look up rows based on specific values.
+- Acts as a table of contents, allowing to locate data quickly and efficiently by reducing disk I/O operations. Instead of scanning every page (row) to find a word (value), you jump directly using the index.
+SQL indexes can be applied to one or more columns and can be either unique or non-unique. Unique indexes ensure that no duplicate values are entered in the indexed columns, while non-unique indexes simply speed up queries without enforcing uniqueness.
+In SQL, it speeds up **search queries** (`SELECT`, `WHERE`, `JOIN`, `ORDER BY`) by creating a data structure (usually a B-Tree or Hash) on the column(s).
+```sql
+CREATE INDEX index_name  
+ON TABLE table_name(colname,col2name);
+
+-----------------------------------------------------------
+CREATE UNIQUE INDEX index_name
+on table_name (column_name);
+
+
+```
+**Which columns should have an index?**
+You don’t index everything — indexes take extra memory and slow down INSERT/UPDATE/DELETE (because the index also needs updating).  
+So, apply indexes wisely:
+1. **Primary Key / Unique columns** → automatically indexed.
+2. **Foreign keys** → indexing them speeds up joins.
+3. Columns used often in `WHERE` conditions.
+4. Columns used in join.
+5. Columns used in `ORDER BY` or `GROUP BY`.
+
+**Avoid indexing**
+- Columns with very few unique values or more null (e.g., `gender` with only `M/F`).
+- Very small tables (index won’t help).
+- Columns that are updated very frequently (index maintenance slows down inserts/updates).
+DROP
+```sql
+DROP INDEX index_name ON table_name
+```
+#### FOREIGN KEY
+- A foreign key is a column in a table that is a reference to the primary key of another table.
+- It is used to establish a relationship between two tables, ensuring data integrity and consistency.
+
+The table with the foreign key is called child table, the table with the primary key is called the parent table or referenced table.
+```sql
+-- Parent Table
+CREATE TABLE Dep (
+    DepartmentID INT PRIMARY KEY,
+    DepartmentName VARCHAR(100)
+);
+
+-- Child Table
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY,
+    EmployeeName VARCHAR(100),
+    DepartmentID INT,
+    FOREIGN KEY (DepartmentID) REFERENCES Dep(DepartmentID)
+);
+```
+##### Violations
+- Insert/update child with a non-existent parent.
+- Delete parent while children exist (unless CASCADE).
+- Modify parent PK without handling child.
+- Drop/disable FK carelessly.
+
+When you try to delete a row that is **referenced by a foreign key in another table**, SQL will usually block the deletion because of **referential integrity**.
+There are **three main ways** to handle this situation:
+###### 1. **Delete the child rows first (manual delete)**
+
+You must first delete all rows in the child table (the one with the foreign key) that reference the parent row.
+```sql
+-- Suppose orders has a foreign key referencing customers(customer_id)
+
+-- First delete from child table
+DELETE FROM orders WHERE customer_id = 5;
+
+-- Then delete from parent table
+DELETE FROM customers WHERE customer_id = 5;
+
+```
+##### 2. **Use ON DELETE SET NULL (or SET DEFAULT)**
+If you want the foreign key in the child table to be set to `NULL` (or a default value) instead of deleting the row:
+```sql
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    customer_id INT,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id) ON DELETE SET NULL
+);
+```
+3. **CASCADE KEY**
+   - Cascading refers to the behavior that occurs when you perform certain operations on a parent table that has associated child tables with foreign key relationships.
+   - Cascade actions define **what should happen to the child records when certain operations are performed on the parent record**
+   - When a CASCADE action is specified for a foreign key, it means that changes made to the referenced primary key in the parent table will automatically propagate to the child table with the foreign key.ds.
+-  **ON UPDATE CASCADE** → If the parent key changes, the child key updates too.    
+- **ON DELETE CASCADE** → If a parent row is deleted, related child rows are also deleted.
+```sql
+CREATE TABLE Customers (
+  customer_id INT PRIMARY KEY,
+  name VARCHAR(50)
+);
+
+CREATE TABLE Orders (
+  order_id INT PRIMARY KEY,
+  customer_id INT,
+  FOREIGN KEY (customer_id) REFERENCES Customers(customer_id) ON DELETE CASCADE
+);
+INSERT INTO Customers VALUES (1, 'Alice');
+INSERT INTO Orders VALUES (101, 1), (102, 1);
+DELETE FROM Customers WHERE customer_id = 1;
+--Automatically, orders `101` and `102` will also be deleted (no manual delete needed).
+
+```
