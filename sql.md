@@ -799,17 +799,17 @@ FROM
 A transaction is a sequence of one or more SQL statements that are executed as a single unit of work. Transactions are used to ensure that database operations are performed in a consistent and reliable manner.
 Let’s say we want to Insert, Update, or even Delete data from one or more database tables, the Transaction function can help us group together all of these operations as a single unit of work.
 ##### Properties of transaction
-a) Atomicity - this ensure either the transaction occur completely or it does not occur at all (all the previous operations are rolled back to their former state.).
-- If money is deducted from A but not credited to B (due to a failure), the whole transaction **rolls back**.
-- Ensures **no partial transactions** occur.
-b.) Consistency - ensure the database remains consistent before and after transaction. Database moves from one valid state to another valid state.
-- If Account A had ₹2000 and B had ₹1000, after transferring ₹500:
-- A → ₹1500, B → ₹1500 (Total = ₹3000, same as before).
-c.) Isolation - ensures that multiple transaction can occur simultaneously without causing any inconsistency. enables transactions to operate independently of and transparent to each other.
-- If Account A has ₹2000, and two transfers of ₹500 and ₹1000 happen simultaneously, isolation ensures final balance is **₹500**, not something wrong like **₹1500 or ₹1000**.
-d.) Durability - ensures that changes after committing successful  transaction are saved. Ensures that the result or effect of a committed transaction persists in case of a system failure.
-- Once the transaction is **committed**, changes are permanent, even if the system crashes.
-- If transfer succeeds and a power failure occurs immediately, the updated balances are still stored.
+a) **Atomicity** - this ensure either the transaction occur completely or it does not occur at all (all the previous operations are rolled back to their former state.)  
+	- If money is deducted from A but not credited to B (due to a failure), the whole transaction **rolls back**.
+	- Ensures **no partial transactions** occur.  
+b) **Consistency** - ensure the database remains consistent before and after transaction. Database moves from one valid state to another valid state.  
+	- If Account A had ₹2000 and B had ₹1000, after transferring ₹500:
+	- A → ₹1500, B → ₹1500 (Total = ₹3000, same as before).  
+c) **Isolation** - ensures that multiple transaction can occur simultaneously without causing any inconsistency. enables transactions to operate independently of and transparent to each other.  
+	- If Account A has ₹2000, and two transfers of ₹500 and ₹1000 happen simultaneously, isolation ensures final balance is **₹500**, not something wrong like **₹1500 or ₹1000**.  
+d) **Durability** - ensures that changes after committing successful  transaction are saved. Ensures that the result or effect of a committed transaction persists in case of a system failure.  
+	- Once the transaction is **committed**, changes are permanent, even if the system crashes.  
+	- If transfer succeeds and a power failure occurs immediately, the updated balances are still stored.  
 
 1.) **BEGIN TRANSACTION** → Starts a new transaction.
 ```sql
