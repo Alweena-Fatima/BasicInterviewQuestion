@@ -184,7 +184,7 @@ Memory is allocated only once (when the class is loaded).
         // class Dog extends Animal {} ❌ Not allowed
 ```   
 Finally: used in try-catch-finally. ---> ensures a block of code always exceutes , even if exception occurs.  
-        
+        ex: Imagine you are reading data from a file. Whether reading succeeds or fails, you need to close the file to avoid resource leaks.
 ```java 
         try {
             int a = 10 / 0;  // This will throw exception
@@ -193,6 +193,17 @@ Finally: used in try-catch-finally. ---> ensures a block of code always exceutes
         } finally {
             System.out.println("Finally block always runs!");
         }
+---
+finally {
+            // This block runs no matter what, ensuring the file is closed
+            try {
+                if (reader != null) {
+                    reader.close();
+                    System.out.println("File closed successfully.");
+                }
+            } catch (IOException e) {
+                System.out.println("Error closing the file!");
+            }
 ```
 
 Finalize() --> method defined in object class --> alled by Garbage Collector (GC) before destroying an object 
