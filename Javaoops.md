@@ -69,6 +69,11 @@ Ans: It is a special method in a class that is automatically called when an obje
         }
     }
 ```
+Q) Constructor Cannot be static, Abstract or final ? why ?  
+Ans:   
+**Static**: A constructor is used to initialize instances of a class, but static belongs to the class itself. A static constructor would not know which object to initialize.  
+**abstract** :A constructor cannot be abstract because abstract methods have no body and must be overridden, whereas constructors must have a body to initialize objects and cannot be inherited or overridden. Declaring a constructor abstract would create a logical conflict, so Java forbids it  
+**final** : final on a method is used to prevent overriding in subclasses. Constructors cannot be overridden because they are not inherited, so final has no effect on constructors, which is why Java doesn’t allow it.  
 
 ---
 
