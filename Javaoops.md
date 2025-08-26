@@ -89,9 +89,11 @@ Ans:
   Ans: The keyword **`static`** in Java and C++ is used for memory management.  
        When a member (variable, method, block, or nested class) is declared as **static**, it belongs to the **class** rather than to any specific object.  
        This means all objects of the class share the same static member.  
+       A static method can access only static data members and other static methods of the class. It cannot access non-static data members or non-static methods of the class.   
    
    **Normal (non-static) members**  
-      -Every object gets its own copy.  
+      -Every object gets its own copy.
+   It can access both static and non-static data members and methods of the class.  
       -Example: If you create 3 objects, each one has its own separate variable.  
       
 ```java 
@@ -224,7 +226,7 @@ Finalize() --> method defined in object class --> alled by Garbage Collector (GC
 
 15. ) **What is Encapsulation?**
     Ans:Encapsulation describes bundling data and methods that work on that data within one unit, like a class. We often often 
-        use this concept to hide an object’s internal representation or state from the outside. This is called information hiding.
+        use this concept to hide an object’s internal representation or state from the outside. It provides data security by preventing unauthorized access to the data. This is called information hiding.
         It’s like putting the data in a capsule so that nobody can directly misuse it.  
         **How Encapsulation Works?**  
           -Make variables private → So that they cannot be accessed directly from outside.  
@@ -305,7 +307,8 @@ Private members are inherited, but not accessible in the subclass.
 
 18.) **Abstraction?**  
   Ans: concept that focuses on hiding the complex implementation details and showing only the essential features of an object. It helps in 
-  reducing programming complexity and effort by providing a clear separation between the abstract properties and the implementation details.  
+  reducing programming complexity and effort by providing a clear separation between the abstract properties and the implementation details.
+  It allows the user to focus on what the object does instead of how it does it.  
   It can be achieve in two ways:   
   a) abstract class---> using this we can achieve 0-100% abstraction    
   b) interface (in JAVA) --> 100% abstraction   
@@ -836,10 +839,51 @@ Show from B
 Show from D
 ```
 
+---
+Q) What is the difference between a shallow copy and a deep copy?
+ANS:   
+A **shallow copy** creates a new object that is a copy of the original object, but the new object only contains references to the same memory locations as the original object. In other words, the new object points to the same memory locations as the original object, so any changes made to the original object will also be reflected in the new object. 
+- shallow copy is a quick and efficient way to copy objects, but it can lead to unexpected behavior if the original object is modified.
+```java
+List<List<Integer>> original = new ArrayList<>();
+original.add(new ArrayList<>(Arrays.asList(1, 2, 3)));
 
+List<List<Integer>> shallowCopy = new ArrayList<>(original);
+shallowCopy.get(0).add(4);  // Affects 'original' as well
 
+```
 
+ **deep copy**, on the other hand, creates a new object that is a copy of the original object, and all of its fields and references are also copied. In other words, a deep copy creates a new object with its own memory locations, so any changes made to the original object will not be reflected in the new object.  
+ - Deep copy is a safer way to copy objects, but it can be slower and more memory-intensive than shallow copy.
+```java
 
+List<List<Integer>> deepCopy = new ArrayList<>();
+for(List<Integer> innerList : original){
+    deepCopy.add(new ArrayList<>(innerList));
+}
+deepCopy.get(0).add(5); // Does NOT affect 'original'
+
+```
+---
+Q) Role of this keyword?
+
+Q) What is a destructor in OOP?  
+A destructor is a special method in object-oriented programming that is automatically called when an object is destroyed or goes out of scope. Its main purpose is to release resources that the object may have acquired during its lifetime, such as memory, file handles, or network connections.  
+```cpp
+class Person {
+    public:
+        Person() {
+            cout << "Constructor called" << endl;
+        }
+        ~Person() {  // Destructor
+            cout << "Destructor called" << endl;
+        }
+};
+int main() {
+    Person p;  // Constructor called here
+}  // Destructor automatically called when 'p' goes out of scope
+```  
+In Java, there is no explicit destructor. Instead, finalize() method or garbage collection handles cleanup automatically.  
 
 
         
