@@ -79,10 +79,10 @@ Ans:
 ---
 
 7. ) **Can we have Access Modifiers for Constructors?**  
-  Ans: Yes, We can have it. 
-    Public constructor: object can be created from anywhere.
-    Private Constructor: Object cannot be created outside the class.
-    Default (package-private in Java): Object can be created only within the same package.
+  Ans: Yes, We can have it.   
+    Public constructor: object can be created from anywhere.  
+    Private Constructor: Object cannot be created outside the class.  
+    Default (package-private in Java): Object can be created only within the same package.  
 
 ---
     
