@@ -29,6 +29,7 @@ public class classname {
 ---
 4. ) **What is object?**  
 Ans: An object is an instance of a class, created using the blueprint provided by the class. Objects have their own state (attributes) and behavior (methods), which are defined in the class.
+ When a class is defined, no memory is allocated but when it is instantiated (i.e. an object is created) memory is allocated. 
 ```java
 class Car {
     void drive() {
