@@ -19,6 +19,26 @@ A database is an organized collection of data stored in the form of tables and a
 - ✅ Example: IBM Information Management System (IMS).
 
 ---
+### SQL 
+SQL (Structured Query Language) is a, declarative(you describe what you want to achieve instead of explicitly writing how to do it.) programming language designed for managing relational databases. It is the primary language for tasks like data retrieval, data manipulation, and database administration.
+
+---
+
+### SQL VS NOSQL
+**SQL** databases are relational and use tables with fixed schemas. They are great when your data is structured and relationships are important, like student records or bank transactions.
+Each row in a table must follow the same schema.
+Example: If the table Students(id, name, marks) is defined,
+every row must have these three columns.
+You cannot suddenly add a "hobbies" column for just one row.
+
+**NoSQL** databases are non-relational and schema-less, meaning they can handle unstructured or semi-structured data. They’re useful when you need scalability and flexibility, like storing user profiles.
+Each document can have a different structure (schema is flexible).
+You can store extra fields for some records without affecting others.
+➡️ First student has 3 fields, second student has 4 fields.
+➡️ This is allowed in NoSQL but not in SQL.
+
+---
+
 ### Database keys:
 Keys are attributes (or sets of attributes) that ensure **data integrity, uniqueness, and relationships** in a database.  
 They help **identify and access records efficiently**.
@@ -34,7 +54,7 @@ They help **identify and access records efficiently**.
 -  Example: `StudentID` in a Students table.
 ##### 2. **Foreign Key**
 - A column that **links two tables**.  
-- Refers to the **primary key of another table**.
+- Foreign Key always references a **candidate key** (usually Primary Key or Unique Key) in another table..
 - Ensures **referential integrity**.  
 -  Example: `CourseID` in `Enrollments` referencing `Courses.CourseID`.
 ##### 3. **Candidate Key**
@@ -202,7 +222,7 @@ TRUNCATE table Table_name
 ```
 
 ---
-### DATA DEFINIATION LANGUAGE
+### DATA MANIPULATION LANGUAGE
 
 It includes the SQL commands that can be used to _**manage data stored in the database.**_ This includes inserting, updating, and deleting data. Examples of DML statements include **SELECT, INSERT, UPDATE, DELETE**
 -  **INSERT:** Used to add new rows (records) to a table.
@@ -249,7 +269,7 @@ DELETE FROM table_name;
 ### DATA QUERY LANGUAGE 
 
 DQL is focused on querying and retrieving data from tables. The primary command is SELECT.
-- SELECT: statement allows you to retrieve data from one or more tables.
+- **SELECT**: statement allows you to retrieve data from one or more tables.
 ```sql
 SELECT
   select_list
@@ -845,8 +865,7 @@ ROLLBACK;
 #### INDEX
 An index in SQL is a schema object that improves the speed of data retrieval operations on a table.
 - Works by creating a separate data structure that provides pointers to the rows in a table. Which makes it faster to look up rows based on specific values.
-- Acts as a table of contents, allowing to locate data quickly and efficiently by reducing disk I/O operations. Instead of scanning every page (row) to find a word (value), you jump directly using the index.
-SQL indexes can be applied to one or more columns and can be either unique or non-unique. Unique indexes ensure that no duplicate values are entered in the indexed columns, while non-unique indexes simply speed up queries without enforcing uniqueness.
+
 In SQL, it speeds up **search queries** (`SELECT`, `WHERE`, `JOIN`, `ORDER BY`) by creating a data structure (usually a B-Tree or Hash) on the column(s).
 ```sql
 CREATE INDEX index_name  
@@ -856,8 +875,8 @@ ON TABLE table_name(colname,col2name);
 CREATE UNIQUE INDEX index_name
 on table_name (column_name);
 
-
 ```
+
 **Which columns should have an index?**
 You don’t index everything — indexes take extra memory and slow down INSERT/UPDATE/DELETE (because the index also needs updating).  
 So, apply indexes wisely:
@@ -875,6 +894,40 @@ DROP
 ```sql
 DROP INDEX index_name ON table_name
 ```
+
+**What happens when you create an index on a column (like networth)?**  
+The database creates a separate data structure (usually a B-tree or hash table).  
+This index stores:
+- The values of the indexed column (networth) in sorted order (if B-tree).
+- A pointer (mapping) to the actual rows in the main table.  
+
+So it’s not making a whole new "table" like we normally think, but a special lookup structure that works like a mini table.  
+
+| ID | Name    | Age | Networth |
+| -- | ------- | --- | -------- |
+| 1  | Alice   | 25  | 50K      |
+| 2  | Bob     | 30  | 80K      |
+| 3  | Charlie | 28  | 20K      |
+
+If we create an index on Networth, the DB internally makes something like:  
+
+Index on Networth (B-tree style):
+| Networth | Pointer to Row |
+| -------- | -------------- |
+| 20K      | Row 3          |
+| 50K      | Row 1          |
+| 80K      | Row 2          |
+
+```sql
+SELECT * FROM Customers WHERE Networth = 50K;
+
+```
+Without index → DB scans all rows (O(n) time).
+
+With index → DB goes to the index, finds 50K quickly (O(log n) with B-tree), then jumps straight to the matching row in the main table.  
+
+---
+
 #### FOREIGN KEY
 - A foreign key is a column in a table that is a reference to the primary key of another table.
 - It is used to establish a relationship between two tables, ensuring data integrity and consistency.
@@ -948,3 +1001,100 @@ DELETE FROM Customers WHERE customer_id = 1;
 --Automatically, orders `101` and `102` will also be deleted (no manual delete needed).
 
 ```
+
+### NORMALIZATION
+Normalization is the process of organizing data in a database into smaller, related tables to:
+- **Remove redundancy** (duplicate data)
+- **Avoid anomalies** (update, insert, delete problems)
+- **Improve data integrity** (data stays accurate and consistent)
+
+📌 Imagine an Unnormalized table (0NF):
+
+<img width="537" height="190" alt="image" src="https://github.com/user-attachments/assets/76879c2a-e25c-4e00-8e29-b7d3424eb749" />  
+
+**Data redundancy** means the same information is stored in multiple places.
+- eg In the table above, the information that "CS101" is "Intro to CS" repeated for every student enrolled in that course.  If thousands of students take CS101, this redundant data would consume significant storage.
+
+An **update anomaly** occurs when you update information in one place but fail to update it in all the other places it's repeated, leading to inconsistent data.
+- eg Suppose the course name is changes fron intro to cs to fundamental of cs., you would need to find every single record for every student enrolled in CS101 and change.
+
+An **insertion anomaly** happens when you can't add a new piece of information to the database because another, unrelated piece of information is missing.
+- eg Imagine the university wants to add a new course, "PHY350 - Quantum Mechanics" .You cannot add this course to the Student_Enrollment table until at least one student enrolls. The table's structure requires a StudentID to create a row, so there's no way to store information about a course that currently has zero students.
+
+A **deletion anomaly** is the unintentional loss of data that occurs when you delete a different piece of data.
+- eg <img width="821" height="277" alt="image" src="https://github.com/user-attachments/assets/9068b118-87a9-4c93-9e14-134ccc262a9a" />
+
+
+---
+### NORMAL FORM 
+Normalization is achieved in stages, each called a Normal Form (NF). Each level builds on the previous one, further reducing redundancy and anomalies.
+## 1NF 
+A table is 1NF when 
+- Each cell holds a single, indivisible (atomic) value. You can't have a list of items in one cell.
+- Each record is unique, usually accomplished by having a primary key.
+- <img width="894" height="557" alt="image" src="https://github.com/user-attachments/assets/2edb5a8e-461b-4aa4-ab28-a6bb7c6d0c60" />
+
+**Problem in 1NF → Why We Need 2NF**
+- Redundancy - The Name is repeated for every course. If Alice takes 5 courses, her name “Alice” is repeated 5 times.
+- Update Anomaly- If Alice’s name changes to “Alice Brown”, we must update all rows where her name appears.
+- Insert Anomaly- If a new student registers but hasn’t chosen any course yet, we can’t insert them without leaving Course empty.
+
+### 2NF  
+Rule of 2NF:  
+- Table must already be in 1NF.
+- No partial dependency → Non-key columns should depend on the whole primary key, not just part of it.  
+In our table, the composite primary key is (StudentID, Course).  
+Name depends only on StudentID, not on the whole key.  
+That’s a partial dependency ❌.  
+<img width="837" height="572" alt="image" src="https://github.com/user-attachments/assets/7e6c27af-5fa8-4d49-b0be-f00ef9308525" />
+
+**Problem in 2NF**
+<img width="905" height="537" alt="image" src="https://github.com/user-attachments/assets/f24396c8-8b39-4d6a-ada4-51612f14484b" />  
+Here Phone depends on Instructor not on the Primary Key.  
+
+### 3NF
+- Table must already be in 2NF.
+- No transitive dependency → Non-key columns should depend only on the primary key.
+<img width="918" height="649" alt="image" src="https://github.com/user-attachments/assets/abeb2c2c-52b7-485b-af42-18018649a1bb" />
+
+Why this is better?  
+No repetition of instructor phone numbers.  
+If Dr. Smith’s phone number changes, update it in one place only.  
+Cleaner, less redundant, and follows 3NF rules.  
+**Problem in 3NF**
+In a functional dependency X → Y,  
+X is the determinant (because the value of X determines Y).  
+Example:  
+If Instructor → Course, then Instructor is the determinant.  
+3NF fixes most redundancy issues, but it still allows certain anomalies (insertion, update, deletion) when:
+A non-prime attribute (not part of any candidate key) depends on a non-key attribute.  
+In short, 3NF allows some situations where a determinant is not a key.  
+Functional dependencies here:  
+(StudentID → Course, Instructor)  (fine, StudentID is a key)   
+Instructor → Course  (problem: Instructor is NOT a key)  
+Here, Instructor is the determinant, but it’s not a candidate key (because many students can have the same instructor).  
+Insertion anomaly  
+You hire Dr. White to teach English.  
+Can you add him?  No.  
+Why? Because the table needs a StudentID, but no student has enrolled yet.   
+So you can’t insert the fact that "Dr. White teaches English".  
+
+### BCNF
+A table is in BCNF if:
+- It is in 3NF.
+- Every determinant is a candidate key (handles anomalies not covered in 3NF).
+It says: “For every dependency X → Y, X must be a candidate key.”
+This removes all anomalies that 3NF can’t fully solve.
+<img width="636" height="609" alt="image" src="https://github.com/user-attachments/assets/de1f0a6f-7ffb-4fb8-9a7e-722005527d04" />
+
+---
+### Denormalization
+Denormalization is the process of intentionally combining normalized tables back together (or introducing some redundancy) to improve read performance of the database.  
+**Why do we need it?**
+In real systems, data is read much more often than it’s written.  
+Normalized databases often require multiple joins to get useful info.  
+Too many joins = slower queries.  
+Denormalization avoids extra joins by keeping data together   
+
+
+
