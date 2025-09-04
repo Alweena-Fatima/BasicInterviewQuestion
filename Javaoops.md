@@ -1,7 +1,7 @@
 # OOPs Concepts
 
 1.) **Define OOPs?**  
-Ans: OOPs, or Object-Oriented Programming, is a programming paradigm where code is organized into objects. These objects combine data and the methods that operate on that data, making programs  
+Ans: OOPs, or Object-Oriented Programming, is a programming paradigm(method to solve some problem) where code is organized into objects. These objects combine data and the methods that operate on that data, making programs  
 more modular, reusable, and easier to maintain.
 
 ---
@@ -18,7 +18,7 @@ piece of code.
 ---
 
 3.) **What is class?**  
-Ans: these are user-defined data types.It defines the structure and behavior of objects that belong to the same type. Classes consist of fields (variables) and methods (functions).  
+Ans:  these are user-defined data types that act as the blueprint for objects, attributes, and methods. It defines the structure and behavior of objects that belong to the same type. Classes consist of fields (variables) and methods (functions).  
 
 ```java
 public class classname {
@@ -70,7 +70,11 @@ Ans: It is a special method in a class that is automatically called when an obje
         }
     }
 ```
-Q) Constructor Cannot be static, Abstract or final ? why ?  
+
+**Q) What is a default constructor?**  
+A default constructor is a no-argument constructor that the Java compiler automatically provides if you do not define any constructor in your class. It initializes instance variables to their default values (e.g., 0 for numbers, null for objects, false for booleans).
+
+**Q) Constructor Cannot be static, Abstract or final ? why ?**    
 Ans:   
 **Static**: A constructor is used to initialize instances of a class, but static belongs to the class itself. A static constructor would not know which object to initialize.  
 **abstract** :A constructor cannot be abstract because abstract methods have no body and must be overridden, whereas constructors must have a body to initialize objects and cannot be inherited or overridden. Declaring a constructor abstract would create a logical conflict, so Java forbids it  
@@ -82,7 +86,12 @@ Ans:
   Ans: Yes, We can have it.   
     Public constructor: object can be created from anywhere.  
     Private Constructor: Object cannot be created outside the class.  
-    Default (package-private in Java): Object can be created only within the same package.  
+    Default (package-private in Java): Object can be created only within the same package.
+   
+--- 
+
+**Q) What happens if an exception is thrown from a constructor?**
+If an unhandled exception is thrown from a constructor, the object creation process fails. The memory allocated for the object will be garbage collected, and the reference variable you were trying to assign the object to will remain null (or its previous value).  
 
 ---
     
@@ -306,10 +315,12 @@ Private members are inherited, but not accessible in the subclass.
 
 ---
 
+**Q) What is the Object class in Java?**
+The Object class, located in the java.lang package, is the root of the class hierarchy in Java. Every class in Java is a direct or indirect subclass of Object. If a class declaration doesn't use the extends keyword, it implicitly inherits from Object. This is why all objects in Java have access to methods like toString(), hashCode(), and equals().  
+
 18.) **Abstraction?**  
-  Ans: concept that focuses on hiding the complex implementation details and showing only the essential features of an object. It helps in 
-  reducing programming complexity and effort by providing a clear separation between the abstract properties and the implementation details.
-  It allows the user to focus on what the object does instead of how it does it.  
+  Ans: concept that focuses on hiding the complex implementation details and showing only the essential features of an object. It helps in reducing programming complexity and effort by providing a clear separation between the abstract properties and the implementation details.
+It allows the user to focus on what the object does instead of how it does it.  
   It can be achieve in two ways:   
   a) abstract class---> using this we can achieve 0-100% abstraction    
   b) interface (in JAVA) --> 100% abstraction   
@@ -358,13 +369,88 @@ Ans: An abstract class can contain abstract methods (methods declared but not im
 
 ```
 If Java let you create an object of Shape, then what would happen if you called draw()? There’s no implementation! That would break the rules of
-OOPS(Every object must be able to respond to all of its methods.) but what if we have all concrete method in class? (idk the answer pls contribute)
+OOPS(Every object must be able to respond to all of its methods.) but what if we have all concrete method in class? (idk the answer pls contribute). This allows the abstract class to initialize its fields and perform setup that all subclasses will inherit.
 
 ---
 
+**Q) Can an abstract class have a constructor?**  
+Yes, we can create constructor in an abstarct class. An abstract class cannot be instantiated directly, but it can have a constructor. The constructor of the abstract class is called whenever a concrete subclass (that extends the abstract class) is instantiated.
+
+``` java
+abstract class Animal {
+    String name;
+    // Constructor in abstract class
+    Animal(String name) {
+        this.name = name;
+        System.out.println("Animal constructor called for " + name);
+    }
+    // Abstract method
+    abstract void sound();
+}
+class Dog extends Animal {
+    Dog(String name) {
+        super(name);  // calls constructor of abstract class
+        System.out.println("Dog constructor called for " + name);
+    }
+    @Override
+    void sound() {
+        System.out.println(name + " says: Woof!");
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Dog d = new Dog("Buddy");
+        d.sound();
+    }
+}
+---
+Animal constructor called for Buddy  
+Dog constructor called for Buddy  
+Buddy says: Woof!  
+```
+
+---
+
+**Q) can abstract class extends abstarct class**  
+Yes ✅, an abstract class can extend another abstract class in Java. 
+
+- When an abstract class extends another abstract class, it inherits all the non-private members (fields, methods, constructors).
+- If the parent abstract class has abstract methods, the child abstract class can either:
+- - Provide an implementation for those methods, OR
+- - Leave them unimplemented — in which case, the child class also remains abstract.
+
+```java
+abstract class Animal {
+    abstract void sound();
+}
+abstract class Mammal extends Animal {
+    // Not implementing sound() here, so Mammal is still abstract
+    abstract void walk();
+}
+class Dog extends Mammal {
+    @Override
+    void sound() {
+        System.out.println("Woof!");
+    }
+    @Override
+    void walk() {
+        System.out.println("Dog walks on 4 legs");
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Dog d = new Dog();
+        d.sound();
+        d.walk();
+    }
+}
+```
+---
+
+
 15.) **polymorphism ?**  
-Ans: Greek words “poly,” meaning many, and “morph,” meaning form or shape. it allows to perform simgle action in different ways( it allows us to perform multiple 
-       operations by using the single name of any method (interface).)
+Ans: Greek words “poly,” meaning many, and “morph,” meaning form or shape. it allows to perform simgle action in different ways( it allows us to perform multiple operations by using the single name of any method (interface).)  
+In practice, it means that a single reference variable can refer to objects of different classes, and a single action  
        Java implements polymorphism in two primary forms: compile-time (or static) polymorphism and runtime (or dynamic) polymorphism.  
        
 **a) --- Compile-time Polymorphism ----**  
@@ -466,8 +552,7 @@ This means that the method to be called is determined at runtime based on the ac
             Parent obj = new Parent(); // object is created in heap Memory
 ```
 One object is created in the heap, and the address of that object is stored in the obj variable  
-Dynamic Method Dispatch: This mechanism enables a superclass reference variable to refer to a subclass object, and Java determines which 
-overridden method to execute based on the actual object type.(a reference variable of the parent class can store the address of an object 
+**Dynamic Method Dispatch:** This mechanism enables a superclass reference variable to refer to a subclass object, and Java determines which overridden method to execute based on the actual object type.(a reference variable of the parent class can store the address of an object 
 of the child class.)  
 
 ```java 
@@ -525,6 +610,36 @@ public class Demo {
 }
 ```
 ---
+
+**Q) Can you achieve runtime polymorphism with data members (instance variables)?**  
+Runtime polymorphism in Java works through method overriding — the method that gets executed depends on the actual object (runtime type), not the reference type.  
+But data members (instance variables) are not overridden, they are hidden. Which member variable gets accessed depends only on the reference type (compile-time), not the object created at runtime.  
+
+``` java
+class Parent {
+    int value = 100;
+    void show() {
+        System.out.println("Parent show: " + value);
+    }
+}
+class Child extends Parent {
+    int value = 200;
+    void show() {
+        System.out.println("Child show: " + value);
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Parent p = new Child();   // Parent reference, Child object
+        System.out.println(p.value);  // Which one will it print?
+        p.show(); // Method is resolved at runtime
+    }
+}
+---
+Child show: 200
+100
+
+```
 
 **Q) Super keyword**  
 Ans: - To access attributes (fields) of the superclass if both superclass and subclass have attributes with the same name.  
@@ -867,6 +982,9 @@ deepCopy.get(0).add(5); // Does NOT affect 'original'
 ```
 ---
 Q) Role of this keyword?
+
+**Q) Can this() and super() be used in the same constructor?**
+No. Both this() and super() must be the first statement inside a constructor. Since you can only have one "first" statement, it's impossible to use them together in the same constructor.
 
 Q) What is a destructor in OOP?  
 A destructor is a special method in object-oriented programming that is automatically called when an object is destroyed or goes out of scope. Its main purpose is to release resources that the object may have acquired during its lifetime, such as memory, file handles, or network connections.  
