@@ -526,6 +526,7 @@ he `GROUP BY` clause allows you to group rows based on values of one or more c
 SELECT
   column1,
   column2,
+  column4, X not allowed as col4 is neither in group by nor in aggregate
   aggregate_function (column3)
 FROM
   table_name
@@ -533,7 +534,12 @@ GROUP BY
   column1,
   column2;
 ```
+In the SELECT clause, you can only use:  
+- Columns that appear in the GROUP BY list  
+- Aggregate functions (like COUNT(), SUM(), AVG(), MAX(), MIN() etc.)  
 you often use the `GROUP BY` clause with an aggregate function such as MIN, MAX, AVG, SUM or COUNT to calculate a measure that provides the information for each group.
+
+---  
 
 #### AGGREGATE FUNTIONS
 
