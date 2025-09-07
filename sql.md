@@ -1,5 +1,33 @@
-### **What is Database?**
-A database is an organized collection of data stored in the form of tables and accessed electronically. It's designed to help users manage, manipulate, and retrieve data efficiently.
+### What is Data?  
+Data refers to raw, unorganized facts and figures, such as numbers, text, images, or symbols, that can be processed and analyzed to extract meaningful information
+
+---
+
+### **What is Database?**  
+
+A collection of related data stored in an organized way so it can be easily accessed, managed, and updated.
+
+---
+
+### What is DataBaseManagementSystem?  
+The software that manages database operations like storage, retrieval, and security (e.g., MySQL, Oracle).  
+The main types are:  
+- Relational DBMS (RDBMS)  
+- NoSQL DBMS (Document, Key-Value, Columnar, Graph)  
+
+---
+ ### What is Schema?  
+ The structural blueprint that defines how data is organized—tables, fields, data types, and relationships.   
+
+---
+
+### What is RDBMS ?    
+Relational databases organize data into tables made up of rows (records) and columns (fields). They use schemas (blueprints) to define how data is structured and how different tables relate to each other.  
+
+---
+### What is NoSQL ?  
+NoSQL stands for "Not Only SQL".  
+It refers to a category of database systems that don’t use traditional relational tables (rows and columns) like SQL databases.  
 
 ---
 ### Type of Database?
