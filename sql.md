@@ -376,7 +376,7 @@ WHERE
 
 #Unknown column 'new_salary' in 'where clause'
 beacuse order of evaluation is 
-FROM > WHERE > SELECT: at the time it evaluates the `WHERE` clause, the database doesn’t have the information of the `new_salary` column alias. So it issued an error.
+FROM > WHERE > GROUP BY > HAVING > SELECT DISTINCT > ORDER BY >  TOP: at the time it evaluates the `WHERE` clause, the database doesn’t have the information of the `new_salary` column alias. So it issued an error.
 -----------------------------------------------------------------
 
 SELECT
