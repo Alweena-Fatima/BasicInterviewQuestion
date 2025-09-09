@@ -986,7 +986,90 @@ deepCopy.get(0).add(5); // Does NOT affect 'original'
 
 ```
 ---
-Q) Role of this keyword?
+**Q) Role of this keyword?**  
+It always refers to the current class object (the object on which the method or constructor is being called).  
+- Used when local variables (like constructor parameters) have the same name as instance variables.  
+```java
+NO PROBLEM WHEN NAME IS DIFFERENT
+class Demo {
+    int i; // instance variable(global variable)
+    void set(int x) {  //x is local
+        i = x; 
+    }
+    void show() {
+        System.out.println(i);
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Demo d = new Demo();
+        d.set(10);
+        d.show(); // Output: 10 
+    }
+}
+
+---------------------------------------------------------------------------------------------------------------------------------
+class Demo {
+    int i; // instance variable(global)
+    void set(int i) {  // here this i is local
+        //i = i; // ❌ assigns parameter 'i' to itself, global variable not updated --> d.show() ka output will be 0
+        this.i=i;//here this.i is global i now opput will be 10
+    }
+    void show() {
+        System.out.println(i); // prints instance variable
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Demo d = new Demo();
+        d.set(10);
+        d.show(); // Output: 10 
+    }
+}
+
+```
+- Call another constructor in the same class
+```java
+class Dog {
+    String name;
+    int age;
+    Dog(String name) {
+        this(name, 1); // calls another constructor
+    }
+    Dog(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    void printInfo() {
+        System.out.println(name + " is " + age + " years old");
+    }
+}
+Dog obj=new Dog("mwo");
+obj.printInfo()
+
+
+```
+- Return current object from a method (useful in method chaining)
+```java
+class Dog {
+    String name;
+    Dog setName(String name) {
+        this.name = name;
+        return this; // returns current object
+    }
+    void print() {
+        System.out.println("Dog name: " + name);
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Dog d = new Dog().setName("Buddy"); // method chaining
+        d.print();
+    }
+}
+```
 
 **Q) Can this() and super() be used in the same constructor?**
 No. Both this() and super() must be the first statement inside a constructor. Since you can only have one "first" statement, it's impossible to use them together in the same constructor.
