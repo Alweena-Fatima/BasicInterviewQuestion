@@ -385,18 +385,16 @@ Yes, we can create constructor in an abstarct class. An abstract class cannot be
 ``` java
 abstract class Animal {
     String name;
-    // Constructor in abstract class
-    Animal(String name) {
-        this.name = name;
-        System.out.println("Animal constructor called for " + name);
+    Animal() {
+        System.out.println("Animal constructor called");
     }
-    // Abstract method
     abstract void sound();
 }
 class Dog extends Animal {
-    Dog(String name) {
-        super(name);  // calls constructor of abstract class
-        System.out.println("Dog constructor called for " + name);
+    Dog() {
+        // super() is implicitly called here (no need to write it)
+        System.out.println("Dog constructor called");
+        name = "Buddy";
     }
     @Override
     void sound() {
@@ -405,10 +403,11 @@ class Dog extends Animal {
 }
 public class Main {
     public static void main(String[] args) {
-        Dog d = new Dog("Buddy");
+        Dog d = new Dog();  // No need to pass arguments now
         d.sound();
     }
 }
+
 ---
 Animal constructor called for Buddy  
 Dog constructor called for Buddy  
