@@ -96,15 +96,16 @@ If an unhandled exception is thrown from a constructor, the object creation proc
 ---
     
 9. ) **What is static?**  
-  Ans: The keyword **`static`** in Java and C++ is used for memory management.  
-       When a member (variable, method, block, or nested class) is declared as **static**, it belongs to the **class** rather than to any specific object.  
-       This means all objects of the class share the same static member.  
-       A static method can access only static data members and other static methods of the class. It cannot access non-static data members or non-static methods of the class.   
+  Ans: A static method is a method that belongs to a class, but it does not belong to an instance of that class and this method can be called without the instance or object of that class. This means all objects of the class share the same static member.   
+A static method can access only static data members and other static methods of the class. It cannot access non-static data members or non-static methods of the class.   
    
    **Normal (non-static) members**  
-      -Every object gets its own copy.
-   It can access both static and non-static data members and methods of the class.  
-      -Example: If you create 3 objects, each one has its own separate variable.  
+      - belongs to object
+      - can be overriden
+      - runtime binding
+      - memory allocated every time when the method is called.
+      - It can access both static and non-static data members and methods of the class.  
+      - Example: If you create 3 objects, each one has its own separate variable.  
       
 ```java 
       class Student {
@@ -119,9 +120,11 @@ If an unhandled exception is thrown from a constructor, the object creation proc
       we create other the prev one gets terminated.  
   ```  
 
-Static members belong to the class, not to objects.  
-All objects share the same copy.
-Memory is allocated only once (when the class is loaded).  
+**Static members**
+- belong to the class, not to objects.  
+- cannot be overriden
+- bind at compile time 
+- memory allocation happens only once, because the static keyword fixed a particular memory for that method in ram. So when the method is called every time in a program, each time that particular memory is used.
 
 ```java
       class Student {
@@ -143,6 +146,9 @@ Memory is allocated only once (when the class is loaded).
       }
       Dog.bark();
 ```
+**Q) Why we can call static method without an object ?**  
+
+The memory for a static method is allocated when the class is loaded into RAM, so it doesn’t depend on any object. Since static methods use compile-time (early) binding, they are directly associated with the class and can be accessed without creating an instance.  
 
 ---
    
