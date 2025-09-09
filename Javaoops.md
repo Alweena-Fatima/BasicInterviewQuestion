@@ -923,6 +923,16 @@ class Test implements X, Y {
     public void methodY() { System.out.println("Method Y"); }
 }
 ```
+
+---
+**Q) Default Methods**
+Default methods were introduced in Java 8 to allow interfaces to have concrete method implementations. This was a significant change to the Java language, as interfaces had previously only been able to define abstract methods. Default methods are defined using the default keyword.  
+**But why were the deafault methods introduced?**
+- Backward Compatibility:Before Java 8, if a new method was added to an interface, all classes that implemented the interface had to be updated to provide an implementation for the new method. This could be a major undertaking, especially for large codebases. With default methods, new methods can be added to interfaces without requiring changes to existing code.
+- Common Functionality: Default methods can be used to define common functionality that is shared by all classes that implement the interface.
+
+[READ MORE](https://medium.com/@reetesh043/default-private-and-static-methods-in-java-interfaces-fcfe60693730) 
+
 **Diamond Problem in Interfaces**   
 If two interfaces have the same default method, and a class implements both, then Java forces the class to override that method → this is how Java resolves the diamond problem safely.  
 ```java
@@ -961,7 +971,7 @@ Show from D
 ```
 
 ---
-Q) What is the difference between a shallow copy and a deep copy?
+**Q) What is the difference between a shallow copy and a deep copy?**
 ANS:   
 A **shallow copy** creates a new object that is a copy of the original object, but the new object only contains references to the same memory locations as the original object. In other words, the new object points to the same memory locations as the original object, so any changes made to the original object will also be reflected in the new object. 
 - shallow copy is a quick and efficient way to copy objects, but it can lead to unexpected behavior if the original object is modified.
