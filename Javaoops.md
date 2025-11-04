@@ -76,7 +76,7 @@ A default constructor is a no-argument constructor that the Java compiler automa
 
 **Q) Constructor Cannot be static, Abstract or final ? why ?**    
 Ans:   
-**Static**: A constructor is used to initialize instances of a class, but static belongs to the class itself. A static constructor would not know which object to initialize.  
+**Static**: Because a constructor is used to initialize objects, and static members belong to the class, not to objects. If a constructor were static, it would mean it belongs to the class, but then no object would know which constructor to call when it is being created.  
 **abstract** :A constructor cannot be abstract because abstract methods have no body and must be overridden, whereas constructors must have a body to initialize objects and cannot be inherited or overridden. Declaring a constructor abstract would create a logical conflict, so Java forbids it  
 **final** : final on a method is used to prevent overriding in subclasses. Constructors cannot be overridden because they are not inherited, so final has no effect on constructors, which is why Java doesn’t allow it.  
 
@@ -96,8 +96,11 @@ If an unhandled exception is thrown from a constructor, the object creation proc
 ---
     
 9. ) **What is static?**  
-  Ans: A static method is a method that belongs to a class, but it does not belong to an instance of that class and this method can be called without the instance or object of that class. This means all objects of the class share the same static member.   
-A static method can access only static data members and other static methods of the class. It cannot access non-static data members or non-static methods of the class.   
+  Ans: A static method belongs to the class, not to any particular instance.
+It can be called without creating an object using the class name.
+👉 Example: ClassName.methodName();
+All objects of the class share the same static members (they have a single copy).
+A static method can access only static variables and static methods, because it doesn’t have access to instance data (no this reference). 
    
    **Normal (non-static) members**  
       - belongs to object
@@ -148,7 +151,9 @@ A static method can access only static data members and other static methods of 
 ```
 **Q) Why we can call static method without an object ?**  
 
-The memory for a static method is allocated when the class is loaded into RAM, so it doesn’t depend on any object. Since static methods use compile-time (early) binding, they are directly associated with the class and can be accessed without creating an instance.  
+Because a static method belongs to the class itself, not to any specific object of that class.
+When a method is declared as static, it is loaded into memory when the class is loaded, even before any object is created.
+That’s why we can call it directly using the class name — there’s no need for an object. 
 
 ---
    
