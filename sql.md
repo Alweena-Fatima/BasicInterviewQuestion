@@ -1,14 +1,12 @@
-### What is Data?  
-Data refers to raw, unorganized facts and figures, such as numbers, text, images, or symbols, that can be processed and analyzed to extract meaningful information
+### **What is Data?**  
+Data refers to raw, unorganized facts and figures, such as numbers, text, images, or symbols, that can be processed and analyzed to extract meaningful information  
 
 ---
 
 ### **What is Database?**  
-
 A collection of related data stored in an organized way so it can be easily accessed, managed, and updated.
 
 ---
-
 ### What is DataBaseManagementSystem?  
 The software that manages database operations like storage, retrieval, and security (e.g., MySQL, Oracle).  
 The main types are:  
@@ -16,8 +14,8 @@ The main types are:
 - NoSQL DBMS (Document, Key-Value, Columnar, Graph)  
 
 ---
- ### What is Schema?  
- The structural blueprint that defines how data is organized—tables, fields, data types, and relationships.   
+### What is Schema?  
+The structural blueprint that defines how data is organized—tables, fields, data types, and relationships.   
 
 ---
 
@@ -243,15 +241,14 @@ RENAME TO new_table_name;
 ALTER TABLE table_name
 RENAME COLUMN old_name TO new_name
 ```
-##### Truncate 
+---
+### Truncate 
 Remove all the row from the table but table structure still exist 
 ```sql
 TRUNCATE table Table_name
 ```
-
 ---
 ### DATA MANIPULATION LANGUAGE
-
 It includes the SQL commands that can be used to _**manage data stored in the database.**_ This includes inserting, updating, and deleting data. Examples of DML statements include **SELECT, INSERT, UPDATE, DELETE**
 -  **INSERT:** Used to add new rows (records) to a table.
 ```sql
@@ -304,7 +301,8 @@ SELECT
 FROM
   table_name;
 
-#select all columns data
+select all columns data 
+
 SELECT * FROM table_name;
 ```
 -  FROM: Specifies the table(s) from which to retrieve data.
@@ -375,7 +373,7 @@ WHERE
   new_salary > 5000
 
 #Unknown column 'new_salary' in 'where clause'
-beacuse order of evaluation is 
+because order of evaluation is 
 FROM > WHERE > GROUP BY > HAVING > SELECT DISTINCT > ORDER BY >  TOP: at the time it evaluates the `WHERE` clause, the database doesn’t have the information of the `new_salary` column alias. So it issued an error.
 -----------------------------------------------------------------
 
@@ -420,7 +418,7 @@ ORDER BY
   job_id;
 ```
 
-##### LIKE 
+#### LIKE 
 The `LIKE` operator returns `true` if a value matches a pattern or `false` otherwise.
 SQL provides you with two wildcard characters to construct a pattern:
 
@@ -442,19 +440,19 @@ where colname NOT LIKE pattern
 |LIKE `'_uy'`|match a string that ends with `uy` and is preceded by one character e.g., `guy`|
 |LIKE `'%are_'`|match a string that includes the string `are` and ends with one character.|
 |LIKE `'_are%'`|match a string that includes the string `are`, starts with one character and ends with any number of characters.|
-##### IS NULL 
+---
+#### IS NULL 
 To test if a value is `NULL` or not, you use the `IS NULL` operator:
 ```sql
 expression IS NULL
 
 expression IS NOT NULL
 ```
-
 ---
 #### LIMITING ROWS
 - **Distinct** 
 		To select the distinct values from a column of a table
-	```sql
+```sql
 	SELECT DISTINCT
 	  column1
 	FROM
@@ -474,6 +472,7 @@ expression IS NOT NULL
 ```
  The `LIMIT row_count` determines the number of rows (`row_count`) returned by the query.
  The `OFFSET row_to_skip` clause skips the `` `row_to_skip` `` rows before beginning to return the rows.
+```
  
 - **FETCH**
 	`OFFSET FETCH` clause which has a similar function to the `LIMIT` clause. The `OFFSET FETCH` clause allows you to skip the first `N` rows in a result set before starting to return rows.
@@ -487,9 +486,8 @@ FROM
   employees
 FETCH FIRST 5 ROWS ONLY;
 ```
-
 ---
-#### ORDER BY
+### ORDER BY
 The `ORDER BY` clause allows you to sort the result set by one or more sort expressions in ascending and/or descending order.
 ```sql
 SELECT
@@ -510,7 +508,8 @@ ORDER BY
   sort_expression_1 [ASC | DESC],
   sort_expression_2 [ASC | DESC];
 ```
-##### Sorting NULLs
+---
+### Sorting NULLs
 In SQL, `NULL` is a marker that indicates missing data or unknown value. `NULL` is special because you cannot compare it with any value.
 If you want to sort rows by a column that has `NULL`, you can have an option to place `NULL`s before or after other regular values.
 ```sql
@@ -521,7 +520,7 @@ ORDER BY sort_expression NULLS LAST
 ---
 
 #### GROUP BY
-he `GROUP BY` clause allows you to group rows based on values of one or more columns. It returns one row for each group.
+The `GROUP BY` clause allows you to group rows based on values of one or more columns. It returns one row for each group.
 ```sql
 SELECT
   column1,
@@ -563,7 +562,7 @@ SELECT
 FROM
   employees;
 ```
-##### AVG function with GROUP BY clause
+AVG function with GROUP BY clause
 ```sql
 SELECT
   department_id,
@@ -591,7 +590,7 @@ WHERE
   job_id = 9;
 ```
 ---
-##### TRICK: how to decide which columns go into `GROUP BY` and which use aggregate functions:
+#### TRICK: how to decide which columns go into `GROUP BY` and which use aggregate functions:
 
 - If a column appears **without an aggregate function** (like `department_id`), it **must** be in the `GROUP BY`.
 - If a column appears **inside an aggregate function** (`COUNT`, `SUM`, `AVG`, `MAX`, etc.), it does **not** need to be in `GROUP BY`.
@@ -626,7 +625,8 @@ FROM
   employees;
 ```
 ---
-#### HAVING
+
+### HAVING
 The GROUP BY clause groups rows of a result set into groups. To specify a condition for filtering groups, you use a `HAVING` clause.
 If you use a `HAVING` clause without a `GROUP BY` clause, the `HAVING` clause behaves like a where clause.
 ```sql
@@ -642,20 +642,22 @@ GROUP BY
 HAVING
   group_condition;
 ```
+---
+#### HAVING VS WHERE 
 
-##### HAVING VS WHERE 
 The WHERE clause applies a condition to rows before the rows are summarized into groups by the `GROUP BY` clause. However, the `HAVING` clause applies a condition to the groups after the rows are grouped into groups.
 Therefore, it is important to note that the `HAVING` clause is applied after whereas the `WHERE` clause is applied before the `GROUP BY` clause.
 
-##### CAST : 
+---
+### CAST : 
 The CAST() function converts a value (of any type) into the specified datatype.
 ```sql
 SELECT CAST(150 AS CHAR);
 SELECT CAST("2017-08-29" AS DATE);
 ```
-
-##### COALESCE()
-handle null values and return them as non-null values
+---
+### COALESCE()
+Handle null values and return them as non-null values
 The COALESCE function works as follows:
 - It evaluates the expressions in the order they are provided.
 - It returns the value of the first non-null expression.
@@ -775,7 +777,7 @@ ORDER BY
  Irene       | Matthew
  
  5.) **FULL OUTER JOIN**
- a `FULL OUTER JOIN` is a combination of a `[LEFT JOIN] and a `[RIGHT JOIN]
+ A `FULL OUTER JOIN` is a combination of a `[LEFT JOIN] and a `[RIGHT JOIN]
  ```aql
  SELECT
   column1,
@@ -797,7 +799,7 @@ ORDER BY
   first_name;
 ```
 ---
-#### SET OPERATION
+### SET OPERATION
 1.) **UNION**
 The `UNION` operator allows you to combine the result sets of two SELECT statements into a single result set.
 The `UNION` operator removes duplicate rows from the combined result set, to retain the duplicate rows, you can use the **`UNION ALL`** operator
@@ -848,55 +850,9 @@ SELECT
 FROM
   table2;
 ```
+
 ---
-#### TRANSACTION
-A transaction is a sequence of one or more SQL statements that are executed as a single unit of work. Transactions are used to ensure that database operations are performed in a consistent and reliable manner.
-Let’s say we want to Insert, Update, or even Delete data from one or more database tables, the Transaction function can help us group together all of these operations as a single unit of work.
-##### Properties of transaction
-a) **Atomicity** - this ensure either the transaction occur completely or it does not occur at all (all the previous operations are rolled back to their former state.)  
-	- If money is deducted from A but not credited to B (due to a failure), the whole transaction **rolls back**.
-	- Ensures **no partial transactions** occur.  
-b) **Consistency** - ensure the database remains consistent before and after transaction. Database moves from one valid state to another valid state.  
-	- If Account A had ₹2000 and B had ₹1000, after transferring ₹500:
-	- A → ₹1500, B → ₹1500 (Total = ₹3000, same as before).  
-c) **Isolation** - ensures that multiple transaction can occur simultaneously without causing any inconsistency. enables transactions to operate independently of and transparent to each other.  
-	- If Account A has ₹2000, and two transfers of ₹500 and ₹1000 happen simultaneously, isolation ensures final balance is **₹500**, not something wrong like **₹1500 or ₹1000**.  
-d) **Durability** - ensures that changes after committing successful  transaction are saved. Ensures that the result or effect of a committed transaction persists in case of a system failure.  
-	- Once the transaction is **committed**, changes are permanent, even if the system crashes.  
-	- If transfer succeeds and a power failure occurs immediately, the updated balances are still stored.  
-
-1.) **BEGIN TRANSACTION** → Starts a new transaction.
-```sql
-BEGIN TRANSACTION;
-```
-2.) **COMMIT TRANSACTION** → Saves changes permanently if everything succeeds.
-```sql
-COMMIT;
-```
-3.) **ROLLBACK TRANSACTION** → Cancels changes and restores previous state if an error occurs.
-```sql
-ROLLBACK;
-```
-EXAMPLE
-```slq
-BEGIN TRANSACTION;
-
-UPDATE Accounts
-SET balance = balance - 500
-WHERE account_id = 101;
-
-UPDATE Accounts
-SET balance = balance + 500
-WHERE account_id = 202;
-
--- If no errors, save changes
-COMMIT;
-
--- If error occurs, rollback
-ROLLBACK;
-
-```
-#### INDEX
+### INDEX
 An index in SQL is a schema object that improves the speed of data retrieval operations on a table.
 - Works by creating a separate data structure that provides pointers to the rows in a table. Which makes it faster to look up rows based on specific values.
 
@@ -962,7 +918,7 @@ With index → DB goes to the index, finds 50K quickly (O(log n) with B-tree), t
 
 ---
 
-#### FOREIGN KEY
+### FOREIGN KEY
 - A foreign key is a column in a table that is a reference to the primary key of another table.
 - It is used to establish a relationship between two tables, ensuring data integrity and consistency.
 
@@ -990,7 +946,7 @@ CREATE TABLE Employees (
 
 When you try to delete a row that is **referenced by a foreign key in another table**, SQL will usually block the deletion because of **referential integrity**.
 There are **three main ways** to handle this situation:
-###### 1. **Delete the child rows first (manual delete)**
+##### 1. **Delete the child rows first (manual delete)**
 
 You must first delete all rows in the child table (the one with the foreign key) that reference the parent row.
 ```sql
@@ -1012,7 +968,7 @@ CREATE TABLE orders (
     FOREIGN KEY (customer_id) REFERENCES customers(customer_id) ON DELETE SET NULL
 );
 ```
-3. **CASCADE KEY**
+##### 3. **CASCADE KEY**
    - Cascading refers to the behavior that occurs when you perform certain operations on a parent table that has associated child tables with foreign key relationships.
    - Cascade actions define **what should happen to the child records when certain operations are performed on the parent record**
    - When a CASCADE action is specified for a foreign key, it means that changes made to the referenced primary key in the parent table will automatically propagate to the child table with the foreign key.ds.
@@ -1033,8 +989,88 @@ INSERT INTO Customers VALUES (1, 'Alice');
 INSERT INTO Orders VALUES (101, 1), (102, 1);
 DELETE FROM Customers WHERE customer_id = 1;
 --Automatically, orders `101` and `102` will also be deleted (no manual delete needed).
+```
+
+---
+
+### **What is cursor**   
+A cursor in SQL is a database object that allows you to retrieve, manipulate, and process rows one at a time from a result set. Work with stored procedures where you need to handle data one record at a time.  
+In SQL, a SELECT statement retrieves the entire result set at once — it’s like printing the whole array using System.out.println(arr).  
+A cursor, on the other hand, lets you process rows one by one — just like using a for loop and printing each element individually with System.out.println(arr[i]).  
+<img width="1222" height="343" alt="image" src="https://github.com/user-attachments/assets/64817137-651e-4374-b67e-ca5acdd5204a" />
+
+---
+### **What is Sql injection ?**  
+SQL Injection is a common web security vulnerability where an attacker injects malicious SQL code into an input field to manipulate or access the database.  
+Think of a website's database as a secure vault and a login form as the guard who asks for your name and password.  
+```sql
+SELECT * FROM users WHERE username = 'bob' AND password = 'bobspassword123';
+```
+The attacker enters this into the username field:  
+**Username: ' OR 1=1 - -**  
+**Password**: (they leave this blank)  
+The website (which is poorly secured) builds this new, malicious command:  
+```sql i/p(' OR 1=1 --)
+SELECT * FROM users WHERE username = '' OR 1=1 --' AND password = '';
+---
+- WHERE username = '' — the attacker's first ' closes the username string, leaving it empty.
+- OR 1=1 — always true, so the WHERE becomes true for every row.
+- -- — starts a comment, so the rest (' AND password = '...') is ignored.
+- Result: the DB runs effectively SELECT * FROM Users WHERE 1=1; → returns all users.
+```
+<img width="1570" height="682" alt="image" src="https://github.com/user-attachments/assets/4a4e97f4-8849-4a69-9140-3f08c02be51c" />
+
+---  
+
+### TRANSACTION
+A transaction is a sequence of one or more SQL statements that are executed as a single unit of work. Transactions are used to ensure that database operations are performed in a consistent and reliable manner.
+Let’s say we want to Insert, Update, or even Delete data from one or more database tables, the Transaction function can help us group together all of these operations as a single unit of work.
+#### Properties of transaction
+a) **Atomicity** - this ensure either the transaction occur completely or it does not occur at all (all the previous operations are rolled back to their former state.)  
+	- If money is deducted from A but not credited to B (due to a failure), the whole transaction **rolls back**.
+	- Ensures **no partial transactions** occur.  
+b) **Consistency** - ensure the database remains consistent before and after transaction. Database moves from one valid state to another valid state.  
+	- If Account A had ₹2000 and B had ₹1000, after transferring ₹500:
+	- A → ₹1500, B → ₹1500 (Total = ₹3000, same as before).  
+c) **Isolation** - ensures that multiple transaction can occur simultaneously without causing any inconsistency. enables transactions to operate independently of and transparent to each other.  
+	- If Account A has ₹2000, and two transfers of ₹500 and ₹1000 happen simultaneously, isolation ensures final balance is **₹500**, not something wrong like **₹1500 or ₹1000**.  
+d) **Durability** - ensures that changes after committing successful  transaction are saved. Ensures that the result or effect of a committed transaction persists in case of a system failure.  
+	- Once the transaction is **committed**, changes are permanent, even if the system crashes.  
+	- If transfer succeeds and a power failure occurs immediately, the updated balances are still stored.  
+
+1.) **BEGIN TRANSACTION** → Starts a new transaction.
+```sql
+BEGIN TRANSACTION;
+```
+2.) **COMMIT TRANSACTION** → Saves changes permanently if everything succeeds.
+```sql
+COMMIT;
+```
+3.) **ROLLBACK TRANSACTION** → Cancels changes and restores previous state if an error occurs.
+```sql
+ROLLBACK;
+```
+EXAMPLE
+```slq
+BEGIN TRANSACTION;
+
+UPDATE Accounts
+SET balance = balance - 500
+WHERE account_id = 101;
+
+UPDATE Accounts
+SET balance = balance + 500
+WHERE account_id = 202;
+
+-- If no errors, save changes
+COMMIT;
+
+-- If error occurs, rollback
+ROLLBACK;
 
 ```
+
+---
 
 ### NORMALIZATION
 Normalization is the process of organizing data in a database into smaller, related tables to:
@@ -1130,5 +1166,6 @@ Normalized databases often require multiple joins to get useful info.
 Too many joins = slower queries.  
 Denormalization avoids extra joins by keeping data together   
 
+--- 
 
 
