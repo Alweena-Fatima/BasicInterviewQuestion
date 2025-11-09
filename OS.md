@@ -65,6 +65,19 @@ Ex: A single process can have multiple threads. For example, your web browser pr
 | **Creation Overhead** | Heavy (needs new memory, resources)        | Light (shares existing process memory)                |
 | **Context Switching** | Slower (due to switching memory space)     | Faster (same memory space)                            |
 
+--- 
+
+### user-level thread and a kernel-level thread?
+**User-Level Threads:**  
+These threads are managed entirely in user space by a thread library, and the operating system is not aware of their existence.  
+Thread creation, switching, and synchronization happen without involving the kernel, making them faster and less resource-intensive.  
+However, if one thread makes a blocking system call, the entire process gets blocked, and these threads cannot run in parallel on multiple processors.  
+
+**Kernel-Level Threads:**  
+These threads are managed directly by the operating system kernel.  
+The kernel is aware of all threads and schedules them individually.  
+They are slower to create and switch due to system call overhead, but they can run truly in parallel on multiple CPUs and if one thread blocks, others can continue execution.  
+
 ---
 
 ### What are the different states of the process?
@@ -230,3 +243,28 @@ Unlike paging, which divides memory into fixed-size blocks, segmentation divides
 - When a process needs a particular memory address, the OS translates the logical address (segment number, offset) into a physical address using the segment table.
 
 Provides a logical view of memory and no internal fragmentation (since segments are variable-sized) but Can lead to external fragmentation, as segments are variable-sized.
+
+---
+### What is Fragmentation  
+Fragmentation in an operating system refers to the inefficient use of memory that occurs when available memory space is divided into small pieces, making it difficult to allocate to processes even though total free memory is sufficient.
+In simple terms, it’s when free memory exists but can’t be used effectively.  
+**Types of Fragmentation**  
+**🧱 1. Internal Fragmentation**  
+- Occurs inside allocated memory blocks.
+- When a process doesn’t fully use the memory block assigned to it, the unused space inside that block is wasted.
+Example:  
+A partition of 100 KB is given to a process needing 80 KB → 20 KB wasted.  
+Common In: Fixed partitioning and paging.  
+
+🧱 **2. External Fragmentation**  
+- Occurs when free memory is scattered in small blocks between allocated blocks.  
+- Even though total free memory might be enough, it’s not contiguous, so new processes can’t fit.
+
+Example:  
+Free blocks: 20 KB + 30 KB + 10 KB (total 60 KB)  
+Process needs 50 KB → can’t fit because memory isn’t continuous.  
+Common In: Dynamic partitioning and segmentation.
+
+---
+### What is a critical- section?  
+When more than one processes access the same code segment that segment is known as the critical section. The critical section contains shared variables or resources which are needed to be synchronized to maintain the consistency of data variables.
