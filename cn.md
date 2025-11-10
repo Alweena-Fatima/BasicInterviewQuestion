@@ -94,7 +94,10 @@ It's the process TCP (a connection-oriented protocol) uses to establish a reliab
 
 ---
 ### What is a port number and why is it needed?
-An IP address gets data to the right computer, but a port number gets data to the right application on that computer. A port is a 16-bit number (0-65535) that identifies a specific service or process.  
+A port is a 16-bit number (0-65535) that identifies a specific service orapplication. Each device (like your laptop or phone) has one IP address, but it can run many network applications at once — e.g., browser, email, WhatsApp, etc.  
+So, the port number helps the computer know which application the incoming data belongs to.  
+Because your device might have multiple programs using the Internet simultaneously, the IP address alone isn’t enough to identify which program should receive which data.
+So the IP address identifies the device, and the port number identifies the specific application on that device.
 For example:
 - Web traffic (HTTP) uses port 80.
 - Secure web traffic (HTTPS) uses port 443.
