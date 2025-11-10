@@ -44,6 +44,7 @@ When you type google.com into your browser, your computer (Browser understands I
 
 ---
 ### What is ARP (Address Resolution Protocol)
+(To communicate within a local network, devices need each other’s MAC address. However, they usually share or know only the IP address.)
 ARP (Address Resolution Protocol) maps an IP address to a MAC address in a local network.  
 [When a device wants to send data to another device on the same network, it knows the other device's IP address but doesn't know its MAC address. ARP sends out a broadcast message to everyone on the LAN, asking, "Who has this IP address?" The device with that IP replies, "I do! Here is my MAC address." The two devices can now talk directly.]
 
