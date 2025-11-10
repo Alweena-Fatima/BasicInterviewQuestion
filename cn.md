@@ -77,7 +77,7 @@ The TCP/IP model is a simpler, more practical model that the internet is actuall
 ---
 ### What is the difference between circuit switching and packet switching?
 Circuit Switching: A dedicated, continuous connection (a "circuit") is established before any data is sent.  
-Packet Switching: Data is broken into small pieces called packets. Each packet is sent independently and can take a different route to the destination, where they are reassembled. This is how the internet works. It's incredibly efficient because many users can share the same lines at the same time.  
+Packet Switching: Data is broken into small pieces called packets.(Every packet has a header (control information, dest ip , src ip, seq no. etc) and data (the actual content).) Each packet is sent independently and can take a different route to the destination, where they are reassembled. This is how the internet works. It's incredibly efficient because many users can share the same lines at the same time.  
 
 ---
 ### Explain simplex, half-duplex, and full-duplex communication.
