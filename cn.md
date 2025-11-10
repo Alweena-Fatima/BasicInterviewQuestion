@@ -34,7 +34,7 @@ An IP (Internet Protocol) address is a unique number assigned to every device on
 
 ---
 ### What is a MAC address and how is it different from an IP address?
-A MAC Address (Media Access Control) is a permanent, physical address burned into the network card by the manufacturer. It's like the serial number of the device. It's used for communication within the same local network (LAN).   
+A MAC Address (Media Access Control) is a permanent, physical address burned into the network card by the manufacturer.(Each device has a network interface card, and this card has a unique MAC address assigned during manufacturing, which is why it is permanent.). It's like the serial number of the device. It's used for communication within the same local network (LAN).   
 Analogy: Your MAC address is your name (it doesn't change), while your IP address is your mailing address (it can change if you move to a new network).
 
 ---
