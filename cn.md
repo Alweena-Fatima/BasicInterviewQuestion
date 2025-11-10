@@ -40,7 +40,7 @@ Analogy: Your MAC address is your name (it doesn't change), while your IP addres
 ---
 ### What is DNS and How Does It Work?
 DNS (Domain Name System) translates domain names (like www.google.com) into IP addresses.  
-When you type google.com into your browser, your computer asks a DNS server, "What's the IP address for https://www.google.com/url?sa=E&source=gmail&q=google.com?" The DNS server looks it up and sends back the IP address, allowing your browser to connect to the right server.
+When you type google.com into your browser, your computer (Browser understands IP addresses, not names) asks a DNS server, "What's the IP address for https://www.google.com/url?sa=E&source=gmail&q=google.com?" The DNS server looks it up and sends back the IP address, allowing your browser to connect to the right server.
 
 ---
 ### What is ARP (Address Resolution Protocol)
