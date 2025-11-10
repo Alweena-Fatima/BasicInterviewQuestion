@@ -109,8 +109,13 @@ A socket is one endpoint of a two-way communication link. It's the "door" that a
 
 ---
 ### Explain flow control and congestion control in TCP.
-- Flow Control: A one-to-one problem. It prevents a fast sender from overwhelming a slow receiver. The receiver tells the sender, "I only have this much buffer space," and the sender adjusts its speed.
-- Congestion Control: A network-wide problem. It prevents a sender from overwhelming the entire network (the routers and links in between). The sender detects network congestion (e.g., lost packets) and slows down its sending rate for everyone's benefit.
+- Flow Control: It’s a sender–receiver (one-to-one) problem. It prevents a fast sender from sending data faster than the receiver can handle.
+TCP uses a mechanism called the sliding window for this. The receiver advertises its available buffer size (window size) to the sender, saying,
+“I can receive only this much data right now.”  
+The sender then adjusts its sending rate accordingly.  
+- Congestion Control: It’s a network-wide problem.  
+Even if the receiver is fast, the network (routers, links, etc.) in between can get overloaded if too many packets are sent.
+TCP detects this congestion — for example, through packet loss or increased delay — and slows down its sending rate using algorithms like Slow Start, Congestion Avoidance, or Fast Recovery.
 
 ---
 ### What are HTTP and HTTPS?
