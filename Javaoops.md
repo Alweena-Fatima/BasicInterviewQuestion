@@ -38,8 +38,8 @@ class Car {
   }
   Car obj = new Car(); // obj is an object of class Car
   Car --> reference type(class)
-  obj --> reference var
-  new Car() --> object 
+  obj --> reference var (  store in stack)
+  new Car() --> object (store in heap)
 ```
 ---
 
