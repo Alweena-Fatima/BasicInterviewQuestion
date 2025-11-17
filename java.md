@@ -182,4 +182,27 @@ public class ErrorExample {
 ```
 ---
 
+### How HashMap Works?
+The HashMap class is a component of the Java Collections Framework and resides within the java.util package. A HashMap organizes data in the form of key and a value pair where each key is mapped to it’s corresponding value. Each pair consists of one object acting as a key and another object serving as its value. When attempting to insert a duplicate key into a HashMap, the existing value mapped with that key is overwritten.   
+<img width="931" height="392" alt="image" src="https://github.com/user-attachments/assets/f1113b86-03b3-41b3-98d6-fd17ecdff15d" /> <img width="594" height="444" alt="image" src="https://github.com/user-attachments/assets/492a8d48-48d4-4082-9a0a-a8ea5ca7234e" />
+<img width="1137" height="228" alt="image" src="https://github.com/user-attachments/assets/e165fec8-4655-43d2-8e8d-6f7a7ee4f6ea" />  
+When you put a key-value pair into a HashMap, the key’s hash code is calculated using the hashCode() method. This hash code is used to determine the index (position) where the value will be stored in an array known as the bucket.
+<img width="639" height="240" alt="image" src="https://github.com/user-attachments/assets/2f58a4d8-f4eb-4fa2-bb8a-c66642a861ae" />
+<img width="911" height="313" alt="image" src="https://github.com/user-attachments/assets/439a5019-e12f-4512-b48c-15acba5e618a" />
+<img width="962" height="363" alt="image" src="https://github.com/user-attachments/assets/106dedc1-ea18-4543-928d-7d33fdebff73" />
+<img width="856" height="574" alt="image" src="https://github.com/user-attachments/assets/86306c2a-5eea-4c38-a7ad-aafdafb70a89" />
+<img width="959" height="412" alt="image" src="https://github.com/user-attachments/assets/d4b3a194-636d-45d9-ba68-0a5d2d3496cd" />
+<img width="973" height="344" alt="image" src="https://github.com/user-attachments/assets/2167c2a4-2963-4057-a86c-dce87b46faa8" />
+<img width="962" height="482" alt="image" src="https://github.com/user-attachments/assets/9a34bb3a-49a5-4dfd-b4c8-313b3434b6b6" />
+<img width="855" height="631" alt="image" src="https://github.com/user-attachments/assets/fbf7adeb-23e1-4c00-98ed-fc8fc5f83bac" />
+<img width="880" height="554" alt="image" src="https://github.com/user-attachments/assets/1f112a97-be1e-4246-8adc-eaa18af97773" />
+<img width="857" height="213" alt="image" src="https://github.com/user-attachments/assets/be4bf33e-c752-453d-8715-9e0c8956705d" />
+
+
+
+
+
+
+
+
 
